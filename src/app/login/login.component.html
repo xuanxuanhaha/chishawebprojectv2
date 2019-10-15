@@ -1,0 +1,9 @@
+<div *ngIf="error">{{error}}</div>
+<div *ngIf="success">{{success}}</div>
+
+<div id="theList">
+  <h2>The list 123</h2>
+  <ul>
+    <li *ngFor="let item of users">{{item.userID}} | {{item.firstName}} | {{item.middleName}} | {{item.lastName}} | {{item.sex}} | {{item.phone}} |{{item.email}} | {{item.address}} </li>
+  </ul>
+</div>
