@@ -1,0 +1,9 @@
+<div *ngIf="error">{{error}}</div>
+<div *ngIf="success">{{success}}</div>
+
+<div id="theList">
+  <h2>The list</h2>
+  <ul>
+    <li *ngFor="let item of products">{{item.productName}} || {{item.unitPrice}} || {{item.unit}} || {{item.supplierId}} || {{item.categoryId}} || {{item.productId}}|| {{item.imgUrl}} </li>
+  </ul>
+</div>

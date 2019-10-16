@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent} from './signup/signup.component';
+import { ProductShowComponent } from './product-show/product-show.component';
+
 
 const routes: Routes = [
   {path: 'app', component: AppComponent}
@@ -18,7 +20,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ProductShowComponent
   ],
   imports: [
     BrowserModule,
