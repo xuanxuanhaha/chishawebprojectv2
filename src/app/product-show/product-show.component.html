@@ -4,6 +4,19 @@
 <div id="theList">
   <h2>The list</h2>
   <ul>
-    <li *ngFor="let item of products">{{item.productName}} || {{item.unitPrice}} || {{item.unit}} || {{item.supplierId}} || {{item.categoryId}} || {{item.productId}}|| {{item.imgUrl}} </li>
+    <li *ngFor="let item of listproducts">
+      <div style="height: 200px;width: 300px;border: 1px solid cornflowerblue; margin-top: 50px">
+        {{item.imgUrl}}
+        <img src="./../../{{item.imgUrl}}" style="width: 100px">
+        <br>
+        {{item.productName}}
+        <br>
+        {{item.unitPrice}}
+        <br>
+        {{item.unit}}
+        <br>
+      </div>
+
+    </li>
   </ul>
 </div>
