@@ -1,9 +1,11 @@
 export class Product {
   constructor(
-    ProductName: string,
-    UnitPrice: number,
-    Unit: string,
-    SupplierID: number,
-    CategoryID: number
-  )
+    productName: string,
+    unitPrice: number,
+    unit: string,
+    supplierID: number,
+    categoryID: number,
+    productID: number,
+    imgUrl: string
+  ) {}
 }

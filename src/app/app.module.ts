@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {Routes, RouterModule} from '@angular/router';
 import {CarService} from './car.service';
 import { UserService} from './user.service';
+import {ProductService} from './product.service';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +30,7 @@ const routes: Routes = [
     FormsModule,
     AppRoutingModule
   ],
-  providers: [CarService, UserService],
+  providers: [CarService, UserService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
