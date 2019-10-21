@@ -11,6 +11,7 @@ export class ProductShowComponent implements OnInit {
   products: Product[];
   listproducts = [];
   countproducts = [];
+  numbershow: boolean;
   productsArray = {
     productId: 0,
     productName: '',
@@ -28,6 +29,7 @@ export class ProductShowComponent implements OnInit {
   ngOnInit() {
     this.getProducts();
     console.log(this.listproducts);
+    this.numbershow = false;
   }
   getProducts() {
     return this.productService.getAll().subscribe(
@@ -45,9 +47,10 @@ export class ProductShowComponent implements OnInit {
   }
 
   addOne(index) {
+    this.numbershow = true;
     for(let i = 0; i < this.listproducts.length; i++){
       if(!this.countproducts[i]){
-        this.countproducts[i] = 0;
+        this.countproducts[i] = 1;
       }
     }
     this.countproducts[index] = this.countproducts[index] + 1;
@@ -55,18 +58,21 @@ export class ProductShowComponent implements OnInit {
     console.log(this.listproducts[index]);
   }
   deleteOne(index) {
+    this.numbershow = true;
     for(let i = 0; i < this.listproducts.length; i++){
       if(!this.countproducts[i]){
-        this.countproducts[i] = 0;
+        this.countproducts[i] = 1;
       }
     }
     this.countproducts[index] = this.countproducts[index] - 1;
-    if(this.countproducts[index] < 0){
-      this.countproducts[index] = 0;
-      alert('can not remove, this product is less than 0');
+    if(this.countproducts[index] < 1){
+      this.countproducts[index] = 1;
+      alert('can not remove, this product is less than 1');
     }
     console.log(this.countproducts);
     console.log(this.listproducts[index]);
   }
-
+  jumpto(index){
+    console.log('jumpto another page' + index);
+  }
 }
