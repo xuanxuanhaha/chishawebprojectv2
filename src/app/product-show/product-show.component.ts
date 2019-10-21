@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { Product} from '../product';
 import {ProductService} from '../product.service';
 
@@ -10,6 +10,7 @@ import {ProductService} from '../product.service';
 export class ProductShowComponent implements OnInit {
   products: Product[];
   listproducts = [];
+  countproducts = [];
   productsArray = {
     productId: 0,
     productName: '',
@@ -26,21 +27,46 @@ export class ProductShowComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
-    console.log(this.productsArray);
+    console.log(this.listproducts);
   }
-  getProducts(): void {
-    this.productService.getAll().subscribe(
+  getProducts() {
+    return this.productService.getAll().subscribe(
       (res: Product[]) => {
         this.products = res;
         for(let i = 0; i < res.length; i++){
           this.listproducts[i] = res[i];
         }
-        console.log(this.productsArray[0]);
+        console.log(this.listproducts[0]);
       },
       (err) => {
         this.error = err;
       }
     );
+  }
+
+  addOne(index) {
+    for(let i = 0; i < this.listproducts.length; i++){
+      if(!this.countproducts[i]){
+        this.countproducts[i] = 0;
+      }
+    }
+    this.countproducts[index] = this.countproducts[index] + 1;
+    console.log(this.countproducts);
+    console.log(this.listproducts[index]);
+  }
+  deleteOne(index) {
+    for(let i = 0; i < this.listproducts.length; i++){
+      if(!this.countproducts[i]){
+        this.countproducts[i] = 0;
+      }
+    }
+    this.countproducts[index] = this.countproducts[index] - 1;
+    if(this.countproducts[index] < 0){
+      this.countproducts[index] = 0;
+      alert('can not remove, this product is less than 0');
+    }
+    console.log(this.countproducts);
+    console.log(this.listproducts[index]);
   }
 
 }

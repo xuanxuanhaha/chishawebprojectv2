@@ -4,17 +4,19 @@
 <div id="theList">
   <h2>The list</h2>
   <ul>
-    <li *ngFor="let item of listproducts">
+    <li *ngFor="let item of listproducts, let index = index" id="{{index}}">
       <div style="height: 200px;width: 300px;border: 1px solid cornflowerblue; margin-top: 50px">
         {{item.imgUrl}}
         <img src="./../../{{item.imgUrl}}" style="width: 100px">
         <br>
-        {{item.productName}}
+        <div id="{{'productname_' + index}}">{{item.productName}}</div>
         <br>
         {{item.unitPrice}}
         <br>
         {{item.unit}}
         <br>
+        <button (click)="addOne(index)" id="{{'addOne_' + index}}">+1</button>
+        <button (click)="deleteOne(index)" id="{{'deleteOne_' + index}}">-1</button>
       </div>
 
     </li>
