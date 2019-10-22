@@ -121,6 +121,7 @@ export class ProductShowComponent implements OnInit {
     const cartproductNumber = ' productNumber: ' +  this.countproducts[index];
     console.log(cartIndex, cartproductId, cartreferenceNo, cartproductNumber);
     let cartexistornot = 0;
+    let numberofexist = 0;
 
 
     if(this.addtocartproductId.length < 0 || this.addtocartproductId.length === 0){
@@ -135,8 +136,10 @@ export class ProductShowComponent implements OnInit {
 
         const indexvalue = Number(this.addtocartIndex[i].replace(/[^0-9]/ig, ''));
         console.log(index, indexvalue);
+        console.log(index === indexvalue);
         if(index === indexvalue){
           cartexistornot = 1;
+          numberofexist = i;
         }
       }
       if(cartexistornot === 0){
@@ -145,10 +148,8 @@ export class ProductShowComponent implements OnInit {
         this.addtocartreferenceNo.push(cartreferenceNo);
         this.addtocartproductNumber.push(cartproductNumber);
       }else{
-        this.addtocartproductId[index] = cartproductId;
-        this.addtocartIndex[index] = cartIndex;
-        this.addtocartreferenceNo[index] = cartreferenceNo;
-        this.addtocartproductNumber[index] = cartproductNumber;
+        console.log(numberofexist);
+        this.addtocartproductNumber[numberofexist] = cartproductNumber;
 
       }
     }
