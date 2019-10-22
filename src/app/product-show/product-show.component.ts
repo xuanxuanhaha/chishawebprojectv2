@@ -14,19 +14,9 @@ export class ProductShowComponent implements OnInit {
   listproducts = [];
   countproducts = [];
   numbershow: boolean;
-  productsArray = {
-    productId: 0,
-    productName: '',
-    unitPrice: 0,
-    unit: '',
-    imgUrl: '',
-    categoryId: 0,
-    supplierId: 0
-  };
   error = '';
   success = '';
   message = 'hola Mundo!';
-  addtocartproducts = [];
   addtocartproductId = [];
   addtocartIndex = [];
   addtocartreferenceNo = [];
@@ -110,6 +100,7 @@ export class ProductShowComponent implements OnInit {
     console.log(index);
     console.log(this.countproducts[index]);
     this.addnewproducttocart(index);
+    this.newMessage1();
   }
   addnewproducttocart(index){
     const cartproductId = 'productId: ' + this.listproducts[index].productId;
@@ -154,6 +145,16 @@ export class ProductShowComponent implements OnInit {
       }
     }
     console.log(this.addtocartproductId, this.addtocartIndex, this.addtocartreferenceNo, this.addtocartproductNumber);
+  }
+  newMessage1(){
+    const a = [];
+    for(let i = 0; i < this.addtocartproductNumber.length; i++){
+      a.push(this.addtocartproductId[i]);
+      a.push(this.addtocartIndex[i]);
+      a.push(this.addtocartreferenceNo[i]);
+      a.push(this.addtocartproductNumber[i]);
+    }
+    this.data.changeMessage1(a);
   }
 }
 

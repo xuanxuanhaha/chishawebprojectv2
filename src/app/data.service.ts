@@ -13,4 +13,7 @@ export class DataService {
   changeMessage(message: string) {
     this.messageSource.next(message);
   }
+  changeMessage1(message: any) {
+    this.messageSource.next(message);
+  }
 }
