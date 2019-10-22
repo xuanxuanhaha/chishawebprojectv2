@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent} from './signup/signup.component';
 import { ProductShowComponent } from './product-show/product-show.component';
 import { UserinfoComponent } from './userinfo/userinfo.component';
+import { StripepaymentComponent } from './stripepayment/stripepayment.component';
+import { PaypalpaymentComponent } from './paypalpayment/paypalpayment.component';
 
 
 const routes: Routes = [
@@ -24,7 +26,9 @@ const routes: Routes = [
     LoginComponent,
     SignupComponent,
     ProductShowComponent,
-    UserinfoComponent
+    UserinfoComponent,
+    StripepaymentComponent,
+    PaypalpaymentComponent
   ],
   imports: [
     BrowserModule,
