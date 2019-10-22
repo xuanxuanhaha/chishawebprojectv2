@@ -23,9 +23,30 @@ export class CartComponent implements OnInit {
   addtocartIndex = [];
   addtocartreferenceNo = [];
   addtocartproductNumber = [];
-  constructor(private data: DataService, private productService: ProductService) { }
+
+  masterSelected: boolean;
+  checklist: any;
+  checkedList: any;
+  totalprice = 0;
+
+  constructor(private data: DataService, private productService: ProductService) {
+
+    // this.checklist = [
+    //   {id: 1, value: 'Elenor Anderson', isSelected: false},
+    //   {id: 2, value: 'Caden Kunze', isSelected: true},
+    //   {id: 3, value: 'Ms. Hortense Zulauf', isSelected: true},
+    //   {id: 4, value: 'Grady Reichert', isSelected: false},
+    //   {id: 5, value: 'Dejon Olson', isSelected: false},
+    //   {id: 6, value: 'Jamir Pfannerstill', isSelected: false},
+    //   {id: 7, value: 'Aracely Renner DVM', isSelected: false},
+    //   {id: 8, value: 'Genoveva Luettgen', isSelected: false}
+    // ];
+    this.getCheckedItemList();
+
+  }
 
   ngOnInit() {
+    this.masterSelected = false;
     this.data.currentMessage.subscribe(message => this.message = message);
     console.log(this.message);
     const result = [];
@@ -57,6 +78,7 @@ export class CartComponent implements OnInit {
         for(let i = 0; i < this.numberarray.length; i++){
           console.log(this.numberarray[i][1]);
           this.listproducts[i] = res[Number(this.numberarray[i][1])];
+          this.listproducts[i].isSelected = false;
         }
         console.log(this.listproducts);
       },
@@ -85,6 +107,34 @@ export class CartComponent implements OnInit {
 
     console.log(Number(this.itemnumber[index]));
     console.log(this.numberarray[index]);
+  }
+
+  checkUncheckAll() {
+    console.log('check uncheck all');
+    for (var i = 0; i < this.listproducts.length; i++) {
+      this.listproducts[i].isSelected = this.masterSelected;
+    }
+    this.getCheckedItemList();
+  }
+  isAllSelected() {
+    console.log('it all selected');
+    this.masterSelected = this.listproducts.every(function(item:any) {
+      return item.isSelected === true;
+    });
+    this.getCheckedItemList();
+  }
+
+  getCheckedItemList(){
+    console.log('getCheckedItemList');
+    this.checkedList = [];
+    this.totalprice = 0;
+    for (var i = 0; i < this.listproducts.length; i++) {
+      if(this.listproducts[i].isSelected){
+        this.checkedList.push(this.listproducts[i]);
+        this.totalprice = this.totalprice + this.listproducts[i].unitPrice * this.itemnumber[i];
+      }
+    }
+    this.checkedList = JSON.stringify(this.checkedList);
   }
 
 
