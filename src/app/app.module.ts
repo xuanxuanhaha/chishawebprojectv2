@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent} from './signup/signup.component';
 import { ProductShowComponent } from './product-show/product-show.component';
+import { UserinfoComponent } from './userinfo/userinfo.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    ProductShowComponent
+    ProductShowComponent,
+    UserinfoComponent
   ],
   imports: [
     BrowserModule,

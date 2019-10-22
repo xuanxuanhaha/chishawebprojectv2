@@ -3,10 +3,11 @@
 
 <div id="theList">
   <h2>Product Show</h2>
+  <h2>Reference No: {{referenceNo}}</h2>
   <div class="form-group">
     <div class="col-6">
     <ul *ngFor="let item of listproducts, let index = index" id="{{index}}">
-      <button style="height:200px;width: 500px;border: 1px solid cornflowerblue; margin-top: 50px" (click)="jumpto(index)">
+      <button style="height:200px;width: 500px;border: 1px solid cornflowerblue; margin-top: 50px" >
 <!--        {{item.imgUrl}}-->
         <div style="width: 40%"><img src="./../../{{item.imgUrl}}" style="width: 150px;margin-left: -50px"></div>
         <div style="width: 60%; margin-left: 40%;margin-top: -150px">
@@ -19,6 +20,10 @@
             <p [hidden]="numbershow" style="margin-top: -5px;">1</p>
           <p [hidden]="!numbershow" style="margin-top: -5px;">{{countproducts[index]}}</p>
           <button (click)="deleteOne(index)" id="{{'deleteOne_' + index}}" style="margin-top: -20px;margin-left: 80px">-1</button>
+          </div>
+          <div>
+            <button style="border: 1px solid cornflowerblue" (click)="jumptoInfo(index)" [routerLink]="['/UserInfo']">buy now</button>
+            <button style="border: 1px solid cornflowerblue">Add to cart</button>
           </div>
         </div>
 
