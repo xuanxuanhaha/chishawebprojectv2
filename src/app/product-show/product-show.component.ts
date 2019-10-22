@@ -93,7 +93,11 @@ export class ProductShowComponent implements OnInit {
     console.log(sendproductId);
     const sendIndex = ' Index: ' + index;
     const sendreferenceNo = 'referenceNo: ' +  this.referenceNo;
+    if(!this.numbershow){
+      this.countproducts[index] = 1;
+    }
     const sendproductNumber = ' productNumber: ' +  this.countproducts[index];
+
     this.data.changeMessage(sendproductId + sendIndex + sendproductNumber + ' ' +  sendreferenceNo);
   }
 }

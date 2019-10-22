@@ -18,6 +18,7 @@ export class UserinfoComponent implements OnInit {
   index = 0;
   productNumber = 0;
   referenceNo = '';
+  totalprice = 0;
   constructor(private productService: ProductService, private data: DataService) { }
 
   ngOnInit() {
@@ -31,6 +32,7 @@ export class UserinfoComponent implements OnInit {
     this.referenceNo = messageArray[7];
     console.log(this.productNumber, this.productId, this.index, this.referenceNo);
     this.getProducts(this.index);
+    // this.totalprice = this.productNumber * this.buyproduct.unitPrice;
   }
 
   getProducts(index) {
@@ -38,6 +40,7 @@ export class UserinfoComponent implements OnInit {
       (res: Product[]) => {
         this.products = res;
         this.buyproduct = res[index];
+        this.totalprice = this.buyproduct.unitPrice * this.productNumber;
       },
       (err) => {
         this.error = err;
