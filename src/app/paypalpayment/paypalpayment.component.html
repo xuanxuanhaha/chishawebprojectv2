@@ -1,6 +1,12 @@
 <p>paypalpayment works!</p>
-<div id ="paypal-button"  style="width: 80px;height: 30px;">
 
+<div id ="paypal-button"  style="width: 80px;height: 30px;">
+  {{message}}
   <button (click)="jumptoweb()" type=”button”>
     jumpto
   </button>
+
+  <button (click)="confirmpay()" type=”button”>
+    confirm payment
+  </button>
+</div>

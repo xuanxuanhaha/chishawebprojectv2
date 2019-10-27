@@ -1,14 +1,20 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {DataService} from '../data.service';
 declare let paypal: any;
+// @ts-ignore
+let totalPrice: any;
+
+
+
 @Component({
   selector: 'app-paypalpayment',
   templateUrl: './paypalpayment.component.html',
   styleUrls: ['./paypalpayment.component.css']
 })
-export class PaypalpaymentComponent implements AfterViewChecked {
+export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
   addScript = false;
-
+  message: string;
   paypalConfig = {
     // Configure environment
     env: 'production',
@@ -26,15 +32,17 @@ export class PaypalpaymentComponent implements AfterViewChecked {
       label: 'paypal',
     },
 
+
     // Enable Pay Now checkout flow (optional)
     commit: true,
 
     // Set up a payment
     payment(data, actions) {
+      // var that = this
       return actions.payment.create({
         transactions: [{
           amount: {
-            total: '0.01',
+            total:totalPrice,
             currency: 'AUD'
           }
         }]
@@ -82,15 +90,23 @@ export class PaypalpaymentComponent implements AfterViewChecked {
     });
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private data: DataService) {
+  }
 
   ngOnInit() {
     this.ngAfterViewChecked();
+    this.data.currentMessage.subscribe(message => this.message = message);
+    // totalPrice = 0.01;
   }
 
   jumptoweb() {
     console.log('jhhh');
     this.router.navigateByUrl('stripepayment');
+  }
+  confirmpay(){
+    console.log(this.message);
+    totalPrice = Number(this.message);
+    console.log(this.message);
   }
 
 

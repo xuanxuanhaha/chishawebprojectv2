@@ -14,6 +14,7 @@ export class PayfromcartComponent implements OnInit {
   buyproduct = [];
   buyproduct2 = [];
   error: any;
+  totalprice = 0;
   products: Product[];
   numberarray = [];
   itemnumberarray = [];
@@ -44,6 +45,7 @@ export class PayfromcartComponent implements OnInit {
     }
     this.getProducts();
 
+    this.data.currentMessage.subscribe(message => this.message = message)
   }
 
   getProducts() {
@@ -68,16 +70,24 @@ export class PayfromcartComponent implements OnInit {
 
         }
         console.log(this.buyproduct2);
-
+        this.calculateTotal();
 
       },
       (err) => {
         this.error = err;
       }
     );
+
   }
-  printtest(){
-    this.getProducts();
-    console.log(this.buyproduct);
+
+  calculateTotal(){
+    for(let i = 0; i < this.itemnumberarray2.length; i++){
+      this.totalprice = this.totalprice + this.itemnumberarray2[i] * this.buyproduct2[i].unitPrice;
+    }
+    console.log(this.totalprice);
+  }
+
+  newMessage() {
+    this.data.changeMessage(this.totalprice.toString());
   }
 }
