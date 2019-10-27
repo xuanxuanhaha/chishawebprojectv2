@@ -68,6 +68,7 @@ export class CartComponent implements OnInit {
     for( let i = 0; i < this.numberarray.length; i++){
       console.log(this.numberarray[i]);
       this.itemnumber.push(this.numberarray[i][3]);
+      this.referenceNo = this.numberarray[0][2];
     }
   }
 

@@ -14,6 +14,7 @@ import { SignupComponent} from './signup/signup.component';
 import { ProductShowComponent } from './product-show/product-show.component';
 import { UserinfoComponent } from './userinfo/userinfo.component';
 import { CartComponent } from './cart/cart.component';
+import { PayfromcartComponent } from './payfromcart/payfromcart.component';
 
 
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
     SignupComponent,
     ProductShowComponent,
     UserinfoComponent,
-    CartComponent
+    CartComponent,
+    PayfromcartComponent
   ],
   imports: [
     BrowserModule,
