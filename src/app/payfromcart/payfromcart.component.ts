@@ -12,11 +12,14 @@ export class PayfromcartComponent implements OnInit {
 
   message: string;
   buyproduct = [];
+  buyproduct2 = [];
   error: any;
   products: Product[];
   numberarray = [];
   itemnumberarray = [];
   itemnumberarray2 = [];
+  itemIdShowarray = [];
+  itemIdShowarray2 = [];
   constructor(private data: DataService, private productService: ProductService,) { }
 
   ngOnInit() {
@@ -31,12 +34,16 @@ export class PayfromcartComponent implements OnInit {
     for(let i = this.numberarray.length / 2; i < this.numberarray.length; i++){
       this.itemnumberarray.push(Number(this.numberarray[i].replace(/[^0-9]/ig,'')));
     }
+    for(let i = 0; i < this.numberarray.length / 2; i++){
+      this.itemIdShowarray.push(Number(this.numberarray[i].replace(/[^0-9]/ig,'')));
+    }
 
     console.log(this.itemnumberarray);
     for(let i = 0; i < this.itemnumberarray.length; i++){
       this.itemnumberarray2[i] = this.itemnumberarray[i];
     }
     this.getProducts();
+
   }
 
   getProducts() {
@@ -47,6 +54,22 @@ export class PayfromcartComponent implements OnInit {
           this.buyproduct[i] = this.products[i];
         }
         console.log(this.buyproduct);
+
+
+        for(let i = 0; i < this.buyproduct.length; i++){
+          console.log(Number(this.buyproduct[i].productId));
+          console.log(this.itemIdShowarray[i]);
+
+          for (let j = 0; j < this.itemIdShowarray.length; j++){
+            if(Number(this.buyproduct[i].productId) === this.itemIdShowarray[j]){
+              this.buyproduct2.push(this.buyproduct[i]);
+            }
+          }
+
+        }
+        console.log(this.buyproduct2);
+
+
       },
       (err) => {
         this.error = err;
