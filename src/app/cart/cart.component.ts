@@ -29,6 +29,9 @@ export class CartComponent implements OnInit {
   checkedList: any;
   totalprice = 0;
 
+  productIdarray = [];
+
+
   constructor(private data: DataService, private productService: ProductService) {
 
     // this.checklist = [
@@ -110,14 +113,12 @@ export class CartComponent implements OnInit {
   }
 
   checkUncheckAll() {
-    console.log('check uncheck all');
     for (var i = 0; i < this.listproducts.length; i++) {
       this.listproducts[i].isSelected = this.masterSelected;
     }
     this.getCheckedItemList();
   }
   isAllSelected() {
-    console.log('it all selected');
     this.masterSelected = this.listproducts.every(function(item:any) {
       return item.isSelected === true;
     });
@@ -125,7 +126,6 @@ export class CartComponent implements OnInit {
   }
 
   getCheckedItemList(){
-    console.log('getCheckedItemList');
     this.checkedList = [];
     this.totalprice = 0;
     for (var i = 0; i < this.listproducts.length; i++) {
@@ -136,6 +136,26 @@ export class CartComponent implements OnInit {
     }
     this.checkedList = JSON.stringify(this.checkedList);
   }
+  jumptoInfo(){
+    this.changeInfotoseveralarrays();
+    this.newMessage();
+  }
+  newMessage(){
+    const a = this.productIdarray;
+    const b = this.itemnumber;
+    const c = [];
+    c.push(a, b);
 
+    console.log(c);
+    // product ID    and    itemNumber
+    this.data.changeMessage(c.toString());
+  }
 
+  changeInfotoseveralarrays(){
+    console.log(this.listproducts);
+    for (let i = 0; i < this.listproducts.length; i++){
+      this.productIdarray.push(this.listproducts[i].productId);
+    }
+    console.log(this.productIdarray);
+  }
 }

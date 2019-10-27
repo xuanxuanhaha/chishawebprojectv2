@@ -1,60 +1,57 @@
 <div style="text-align:center">
-  <h1>
-<!--    {{ title }}!-->
-  </h1>
+
 </div>
 <div class="container">
   <div class="text-center mt-5">
     <div class="row">
       <div class="col-12">
-        <ul class="list-group" >
+        <ul class="list-group">
           <li class="list-group-item">
-            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/> <strong>Select/ Unselect All</strong>
+            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1"
+                   (change)="checkUncheckAll()"/> <strong>Select/ Unselect All</strong>
           </li>
         </ul>
         <ul class="list-group">
-<!--          <li class="list-group-item" *ngFor="let item of checklist">-->
-<!--            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}" (change)="isAllSelected()"/>-->
-<!--            {{item.value}}-->
 
 
-<!--{{message}}-->
+          <ul class="list-group-item" *ngFor="let item of listproducts, let index = index" id="{{index}}">
+            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"
+                   (change)="isAllSelected()"/>
+            <button style="height:200px;width: 500px;border: 1px solid cornflowerblue; margin-top: 50px">
+              <!--        {{item.imgUrl}}-->
+              <div style="width: 40%"><img src="./../../{{item.imgUrl}}" style="width: 150px;margin-left: -50px"></div>
+              <div style="width: 60%; margin-left: 40%;margin-top: -150px">
+                <br>
+                <div id="{{'productname_' + index}}">{{item.productName}}</div>
+                <div style="background: darkgrey"><span
+                  style="color: red; float: left; margin-left: 20px">Price:</span> {{item.unitPrice}} / {{item.unit}}
+                </div>
+                <br>
+                <div style="background: darkgrey"><span
+                  style="color: red; float: left; margin-left: 20px;">Number: </span>
+                  <button (click)="addOne(index)" id="{{'addOne_' + index}}">+1</button>
+                  <p style="margin-top: -5px;">{{itemnumber[index]}}</p>
+                  <button (click)="deleteOne(index)" id="{{'deleteOne_' + index}}"
+                          style="margin-top: -20px;margin-left: 80px">-1
+                  </button>
+                </div>
+                <div>
+
+                </div>
+              </div>
 
 
-    <ul class="list-group-item" *ngFor="let item of listproducts, let index = index" id="{{index}}">
-      <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}" (change)="isAllSelected()"/>
-      <button style="height:200px;width: 500px;border: 1px solid cornflowerblue; margin-top: 50px" >
-        <!--        {{item.imgUrl}}-->
-        <div style="width: 40%"><img src="./../../{{item.imgUrl}}" style="width: 150px;margin-left: -50px"></div>
-        <div style="width: 60%; margin-left: 40%;margin-top: -150px">
-          <br>
-          <div id="{{'productname_' + index}}">{{item.productName}}</div>
-          <div style="background: darkgrey"><span style="color: red; float: left; margin-left: 20px">Price:</span> {{item.unitPrice}} / {{item.unit}}</div>
-          <br>
-          <div style="background: darkgrey"><span style="color: red; float: left; margin-left: 20px;">Number: </span>
-            <button (click)="addOne(index)" id="{{'addOne_' + index}}">+1</button>
-            <p style="margin-top: -5px;">{{itemnumber[index]}}</p>
-            <button (click)="deleteOne(index)" id="{{'deleteOne_' + index}}" style="margin-top: -20px;margin-left: 80px">-1</button>
-          </div>
-          <div>
-<!--            <button style="border: 1px solid cornflowerblue" (click)="jumptoInfo(index)" [routerLink]="['/UserInfo']">buy now</button>-->
-<!--            <button style="border: 1px solid cornflowerblue" (click)="jumptoCart(index)" >Add to cart</button>-->
-          </div>
-        </div>
+            </button>
+
+          </ul>
 
 
-      </button>
-
-    </ul>
-
-<!--          </li>-->
         </ul>
       </div>
-<!--      <div class="col-3" style="margin-left: 30%;">-->
-<!--        <code>{{checkedList}}</code>-->
-<!--      </div>-->
+
     </div>
   </div>
 </div>
-
+<button style="border: 1px solid cornflowerblue" (click)="jumptoInfo()" [routerLink]="['/Payfromcart']">buy now</button>
+<button style="border: 1px solid cornflowerblue">Go back home</button>
 <div>Total Price: {{totalprice}}</div>
