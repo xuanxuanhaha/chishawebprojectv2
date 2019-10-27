@@ -13,8 +13,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent} from './signup/signup.component';
 import { ProductShowComponent } from './product-show/product-show.component';
 import { UserinfoComponent } from './userinfo/userinfo.component';
+
 import { CartComponent } from './cart/cart.component';
 import { PayfromcartComponent } from './payfromcart/payfromcart.component';
+
+import { StripepaymentComponent } from './stripepayment/stripepayment.component';
+import { PaypalpaymentComponent } from './paypalpayment/paypalpayment.component';
+
 
 
 const routes: Routes = [
@@ -27,8 +32,13 @@ const routes: Routes = [
     SignupComponent,
     ProductShowComponent,
     UserinfoComponent,
+
     CartComponent,
-    PayfromcartComponent
+    PayfromcartComponent,
+
+    StripepaymentComponent,
+    PaypalpaymentComponent
+
   ],
   imports: [
     BrowserModule,

@@ -7,14 +7,21 @@ import {ProductShowComponent} from './product-show/product-show.component';
 import {UserinfoComponent} from './userinfo/userinfo.component';
 import {CartComponent} from './cart/cart.component';
 import {PayfromcartComponent} from './payfromcart/payfromcart.component';
+import {StripepaymentComponent} from './stripepayment/stripepayment.component';
+import {PaypalpaymentComponent} from './paypalpayment/paypalpayment.component';
 
 const routes: Routes = [
   {path: 'Login', component: LoginComponent},
   {path: 'Signup', component: SignupComponent},
   {path: 'ProductShow', component: ProductShowComponent},
   {path: 'UserInfo', component: UserinfoComponent},
+
   {path: 'Cart', component: CartComponent},
-  {path: 'Payfromcart', component: PayfromcartComponent}
+  {path: 'Payfromcart', component: PayfromcartComponent},
+
+  {path: 'stripepayment', component: StripepaymentComponent},
+  {path: 'paypalpayment', component: PaypalpaymentComponent},
+
 ]
 @NgModule({
   declarations: [],
