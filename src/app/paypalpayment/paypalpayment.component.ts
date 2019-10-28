@@ -15,6 +15,10 @@ let totalPrice: any;
 export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
   addScript = false;
   message: string;
+  buyProductIdArray = [];
+  buyProductNoArray = [];
+  fromCartOrOrder = '';
+  referenceNo = '';
   paypalConfig = {
     // Configure environment
     env: 'production',
@@ -42,7 +46,7 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
       return actions.payment.create({
         transactions: [{
           amount: {
-            total:totalPrice,
+            total: totalPrice,
             currency: 'AUD'
           }
         }]
@@ -99,14 +103,31 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     // totalPrice = 0.01;
   }
 
-  jumptoweb() {
-    console.log('jhhh');
-    this.router.navigateByUrl('stripepayment');
-  }
-  confirmpay(){
+
+  confirmpay() {
     console.log(this.message);
-    totalPrice = Number(this.message);
-    console.log(this.message);
+    const message2 = this.message.split(',');
+    // know whether from Cart or buy directly(1 product);
+    this.fromCartOrOrder = message2.slice(-1)[0];
+    this.referenceNo = message2.slice(-2)[0];
+    console.log(totalPrice);
+    // get total price pass to paypal
+    totalPrice = Number(message2[0]);
+    message2.splice(0, 1);
+    message2.pop();
+    message2.pop();
+    console.log(message2);
+    console.log(this.fromCartOrOrder);
+
+    // get product ID and number customer bought, get the other infomation from database
+    for (let i = 0; i < message2.length / 2; i++){
+      this.buyProductIdArray.push(message2[i]);
+    }
+    for (let i = message2.length / 2; i < message2.length; i++){
+      this.buyProductNoArray.push(message2[i]);
+    }
+    console.log(this.buyProductIdArray);
+    console.log(this.buyProductNoArray);
   }
 
 

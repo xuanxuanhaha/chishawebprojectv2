@@ -16,27 +16,24 @@ export class PayfromcartComponent implements OnInit {
   error: any;
   totalprice = 0;
   products: Product[];
-  numberarray = [];
   itemnumberarray = [];
   itemnumberarray2 = [];
   itemIdShowarray = [];
-  itemIdShowarray2 = [];
-  constructor(private data: DataService, private productService: ProductService,) { }
+  referenceNo = '';
+  constructor(private data: DataService, private productService: ProductService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
-    console.log(this.message);
-    for (let i = 0; i < this.message.length; i += 2) {
-      // const value = this.message[i].replace(/[^0-9]/ig,"");
-      this.numberarray.push(this.message.slice(i, i + 2));
-    }
-    console.log(this.numberarray);
+    const message2 = this.message.split(',');
+    this.referenceNo = message2.slice(-1)[0];
+    message2.pop();
+    console.log(message2);
 
-    for(let i = this.numberarray.length / 2; i < this.numberarray.length; i++){
-      this.itemnumberarray.push(Number(this.numberarray[i].replace(/[^0-9]/ig,'')));
+    for(let i = 0; i < message2.length / 2; i++){
+      this.itemIdShowarray.push(Number(message2[i]));
     }
-    for(let i = 0; i < this.numberarray.length / 2; i++){
-      this.itemIdShowarray.push(Number(this.numberarray[i].replace(/[^0-9]/ig,'')));
+    for(let i = message2.length / 2; i < message2.length; i++){
+      this.itemnumberarray.push(Number(message2[i]));
     }
 
     console.log(this.itemnumberarray);
@@ -45,7 +42,7 @@ export class PayfromcartComponent implements OnInit {
     }
     this.getProducts();
 
-    this.data.currentMessage.subscribe(message => this.message = message)
+    this.data.currentMessage.subscribe(message => this.message = message);
   }
 
   getProducts() {
@@ -88,6 +85,17 @@ export class PayfromcartComponent implements OnInit {
   }
 
   newMessage() {
-    this.data.changeMessage(this.totalprice.toString());
+    // let newmessage = this.totalprice.toString();
+    let newmessage = this.totalprice.toString();
+    for (let i = 0; i < this.buyproduct2.length; i++){
+        newmessage = newmessage + ',' + this.buyproduct2[i].productId.toString();
+    }
+    for (let i = 0; i < this.buyproduct2.length; i++){
+      newmessage = newmessage + ',' + this.itemnumberarray2[i];
+    }
+    newmessage = newmessage + ',' + this.referenceNo.toString();
+    newmessage = newmessage + ',' + 'from cart';
+    console.log(newmessage);
+    this.data.changeMessage(newmessage);
   }
 }

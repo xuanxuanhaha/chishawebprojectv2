@@ -149,7 +149,7 @@ export class CartComponent implements OnInit {
 
     console.log(c);
     // product ID    and    itemNumber
-    this.data.changeMessage(c.toString());
+    this.data.changeMessage(c.toString() + ',' +  this.referenceNo);
   }
 
   changeInfotoseveralarrays(){
