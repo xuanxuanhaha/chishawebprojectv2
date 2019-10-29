@@ -22,10 +22,12 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
   referenceNo = '';
   paypalConfig = {
     // Configure environment
-    env: 'production',
+    // env: 'production',
+    env: 'sandbox',
     client: {
       // Enter your live client ID here
-      production: 'ARQZgu-hy4tOb3lhuSPCuls3EGKYMHnK8mHiBbBkx6Un1UR7SEzCeCraKrqCFzeKZ5XF450f0fdAy1nn'
+      // production: 'ARQZgu-hy4tOb3lhuSPCuls3EGKYMHnK8mHiBbBkx6Un1UR7SEzCeCraKrqCFzeKZ5XF450f0fdAy1nn'
+      sandbox: 'AduQzS7xgkshjnXWfbdrvct2WwowNotKJIg-EbHm3BQXb8ZLLHr29dm5BU0ipi0DOtZQ27-1F5ept2M6'
     },
     // Customize button (optional)
     locale: 'en_AU',
@@ -122,6 +124,8 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     console.log(message2);
     console.log(this.fromCartOrOrder);
 
+    this.buyProductIdArray = [];
+    this.buyProductNoArray = [];
     // get product ID and number customer bought, get the other infomation from database
     for (let i = 0; i < message2.length / 2; i++){
       this.buyProductIdArray.push(message2[i]);

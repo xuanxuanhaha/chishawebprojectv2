@@ -16,13 +16,17 @@ export class InvoicefinishpayComponent implements OnInit {
   productNo = [];
   // Product Id in database
   productId = [];
+  firstname = '';
+  lastname = '';
+  email = '';
+  phone = '';
   constructor(private data: DataService, private router: Router) { }
 
   ngOnInit() {
 
     this.data.currentMessage.subscribe(message => this.message = message);
     console.log(this.router.url);
-    // /stripepayment/6.5,1,3,4,1,93122054,from%20cart
+    // /invoicefinishpay/5.5,1,3,3,1,33451960,from%20cart,ww,kk,aaaa,04122222222
     const urlmessage = this.router.url;
     this.refIDNofrompaypal = urlmessage.split('/').splice(-1)[0];
     console.log(this.refIDNofrompaypal);
@@ -33,6 +37,17 @@ export class InvoicefinishpayComponent implements OnInit {
     this.totalAmount = refIDNofrompaypalArray[0];
     console.log(this.totalAmount);
     refIDNofrompaypalArray.shift();
+
+    this.phone = refIDNofrompaypalArray[-1];
+    refIDNofrompaypalArray.pop();
+    this.email = refIDNofrompaypalArray[-1];
+    refIDNofrompaypalArray.pop();
+    this.lastname = refIDNofrompaypalArray[-1];
+    refIDNofrompaypalArray.pop();
+    this.firstname = refIDNofrompaypalArray[-1];
+    refIDNofrompaypalArray.pop();
+
+
     let fromCart = '';
     fromCart = refIDNofrompaypalArray[-1];
     refIDNofrompaypalArray.pop();

@@ -100,13 +100,17 @@ export class PayfromcartComponent implements OnInit {
     }
     newmessage = newmessage + ',' + this.referenceNo.toString();
     newmessage = newmessage + ',' + 'from cart';
+    newmessage = newmessage + ',' + this.firstname.value;
+    newmessage = newmessage + ',' + this.lastname.value;
+    newmessage = newmessage + ',' + this.email.value;
+    newmessage = newmessage + ',' + this.phone.value;
     console.log(newmessage);
     this.data.changeMessage(newmessage);
 
-    console.log(this.firstname.value);
-    console.log(this.lastname.value);
-    console.log(this.email.value);
-    console.log(this.phone.value);
+    // console.log(this.firstname.value);
+    // console.log(this.lastname.value);
+    // console.log(this.email.value);
+    // console.log(this.phone.value);
 
     // this.personalinfoMessage();
   }
