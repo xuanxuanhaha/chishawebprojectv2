@@ -8,20 +8,20 @@
 <form style="width: 30%">
   <div class="form-group">
     <label for="firstnameInputFirstname1">First Name</label>
-    <input type="input" class="form-control" id="firstnameInputFirstname1" aria-describedby="firstnameHelp" placeholder="Enter firstname">
+    <input type="text" class="form-control" id="firstnameInputFirstname1" aria-describedby="firstnameHelp" [formControl]="firstname" placeholder="Enter firstname">
   </div>
   <div class="form-group">
     <label for="lastnameInputLastname1">Last Name</label>
-    <input type="input" class="form-control" id="lastnameInputLastname1" aria-describedby="lastnameHelp" placeholder="Enter lastname">
+    <input type="input" class="form-control" id="lastnameInputLastname1" aria-describedby="lastnameHelp" [formControl]="lastname" placeholder="Enter lastname">
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [formControl]="email" placeholder="Enter email">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPhone1">Phone</label>
-    <input type="input" class="form-control" id="exampleInputPhone1" aria-describedby="phoneHelp" placeholder="Enter phone">
+    <input type="input" class="form-control" id="exampleInputPhone1" aria-describedby="phoneHelp" [formControl]="phone" placeholder="Enter phone">
     <small id="phoneHelp" class="form-text text-muted">We'll never share your phone with anyone else.</small>
   </div>
 

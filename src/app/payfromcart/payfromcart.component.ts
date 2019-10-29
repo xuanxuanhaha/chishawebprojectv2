@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from '../data.service';
 import {Product} from '../product';
 import {ProductService} from '../product.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-payfromcart',
@@ -20,6 +21,10 @@ export class PayfromcartComponent implements OnInit {
   itemnumberarray2 = [];
   itemIdShowarray = [];
   referenceNo = '';
+  firstname = new FormControl('');
+  lastname = new FormControl('');
+  email = new FormControl('');
+  phone = new FormControl('');
   constructor(private data: DataService, private productService: ProductService) { }
 
   ngOnInit() {
@@ -97,5 +102,16 @@ export class PayfromcartComponent implements OnInit {
     newmessage = newmessage + ',' + 'from cart';
     console.log(newmessage);
     this.data.changeMessage(newmessage);
+
+    console.log(this.firstname.value);
+    console.log(this.lastname.value);
+    console.log(this.email.value);
+    console.log(this.phone.value);
+
+    // this.personalinfoMessage();
   }
+
+  // personalinfoMessage(){
+  //   this.data.changeMessage('Hello from Sibling');
+  // }
 }

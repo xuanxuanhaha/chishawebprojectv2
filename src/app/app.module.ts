@@ -8,7 +8,7 @@ import {CarService} from './car.service';
 import { UserService} from './user.service';
 import {ProductService} from './product.service';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent} from './signup/signup.component';
 import { ProductShowComponent } from './product-show/product-show.component';
@@ -46,7 +46,8 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [CarService, UserService, ProductService],
   bootstrap: [AppComponent]
