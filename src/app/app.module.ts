@@ -19,6 +19,7 @@ import { PayfromcartComponent } from './payfromcart/payfromcart.component';
 
 import { StripepaymentComponent } from './stripepayment/stripepayment.component';
 import { PaypalpaymentComponent } from './paypalpayment/paypalpayment.component';
+import { InvoicefinishpayComponent } from './invoicefinishpay/invoicefinishpay.component';
 
 
 
@@ -37,7 +38,8 @@ const routes: Routes = [
     PayfromcartComponent,
 
     StripepaymentComponent,
-    PaypalpaymentComponent
+    PaypalpaymentComponent,
+    InvoicefinishpayComponent
 
   ],
   imports: [

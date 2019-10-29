@@ -63,7 +63,7 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
         // window.alert('Thank you for your purchase!');
         console.log(payment);
         console.log(printMessage);
-        window.location.href = 'http://localhost:4200/stripepayment' + '/' + printMessage;
+        window.location.href = 'http://localhost:4200/invoicefinishpay' + '/' + printMessage;
       //  跳转到其他页面
 
       });

@@ -9,6 +9,7 @@ import {CartComponent} from './cart/cart.component';
 import {PayfromcartComponent} from './payfromcart/payfromcart.component';
 import {StripepaymentComponent} from './stripepayment/stripepayment.component';
 import {PaypalpaymentComponent} from './paypalpayment/paypalpayment.component';
+import {InvoicefinishpayComponent} from './invoicefinishpay/invoicefinishpay.component';
 
 const routes: Routes = [
   {path: 'Login', component: LoginComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
 
   {path: 'stripepayment/:id', component: StripepaymentComponent},
   {path: 'paypalpayment', component: PaypalpaymentComponent},
+  {path: 'invoicefinishpay/:id', component: InvoicefinishpayComponent}
 
 ]
 @NgModule({
