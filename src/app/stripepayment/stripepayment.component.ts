@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from '../data.service';
 
 @Component({
   selector: 'app-stripepayment',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stripepayment.component.css']
 })
 export class StripepaymentComponent implements OnInit {
-
+  message: string;
   chargeCreditCard() {
     const form = document.getElementsByTagName('form')[0];
     console.log(form.cardNumber.value);
@@ -39,9 +40,10 @@ export class StripepaymentComponent implements OnInit {
     //   })
   }
 
-  constructor() { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.currentMessage.subscribe(message => this.message = message);
   }
 
 }

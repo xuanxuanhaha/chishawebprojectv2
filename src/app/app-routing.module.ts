@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'Cart', component: CartComponent},
   {path: 'Payfromcart', component: PayfromcartComponent},
 
-  {path: 'stripepayment', component: StripepaymentComponent},
+  {path: 'stripepayment/:id', component: StripepaymentComponent},
   {path: 'paypalpayment', component: PaypalpaymentComponent},
 
 ]

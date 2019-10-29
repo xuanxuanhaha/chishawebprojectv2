@@ -4,6 +4,7 @@ import {DataService} from '../data.service';
 declare let paypal: any;
 // @ts-ignore
 let totalPrice: any;
+let printMessage: any;
 
 
 
@@ -46,7 +47,7 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
       return actions.payment.create({
         transactions: [{
           amount: {
-            total: totalPrice,
+            total: 0.01,
             currency: 'AUD'
           }
         }]
@@ -54,14 +55,15 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     },
     // Execute the payment
     onAuthorize(data, actions) {
-      const that = this;
       return actions.payment.execute().then((payment) => {
         // Show a confirmation message to the buyer
         // that.router.navigateByUrl('stripepayment');
         // console.log(payment);
         // that.paymentSuccess();
         // window.alert('Thank you for your purchase!');
-        window.location.href = 'http://localhost:4200/ProductShow';
+        console.log(payment);
+        console.log(printMessage);
+        window.location.href = 'http://localhost:4200/stripepayment' + '/' + printMessage;
       //  跳转到其他页面
 
       });
@@ -106,6 +108,7 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
 
   confirmpay() {
     console.log(this.message);
+    printMessage = this.message;
     const message2 = this.message.split(',');
     // know whether from Cart or buy directly(1 product);
     this.fromCartOrOrder = message2.slice(-1)[0];
@@ -128,6 +131,10 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     }
     console.log(this.buyProductIdArray);
     console.log(this.buyProductNoArray);
+  }
+
+  newMessage() {
+    this.data.changeMessage('Hello from Sibling');
   }
 
 
