@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../data.service';
 import {Router} from '@angular/router';
+import {Customerinfo} from '../customerinfo';
+import {CustomerinfoService} from '../customerinfo.service';
 
 @Component({
   selector: 'app-invoicefinishpay',
@@ -20,7 +22,11 @@ export class InvoicefinishpayComponent implements OnInit {
   lastname = '';
   email = '';
   phone = '';
-  constructor(private data: DataService, private router: Router) { }
+  customerinfos: Customerinfo[];
+  error='';
+  success='';
+  customerinfo = new Customerinfo('', '', '', 0, 0);
+  constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router) { }
 
   ngOnInit() {
 
@@ -38,13 +44,16 @@ export class InvoicefinishpayComponent implements OnInit {
     console.log(this.totalAmount);
     refIDNofrompaypalArray.shift();
 
-    this.phone = refIDNofrompaypalArray[-1];
+    console.log(refIDNofrompaypalArray);
+
+    this.phone = refIDNofrompaypalArray[refIDNofrompaypalArray.length - 1];
+    console.log(this.phone);
     refIDNofrompaypalArray.pop();
-    this.email = refIDNofrompaypalArray[-1];
+    this.email = refIDNofrompaypalArray[refIDNofrompaypalArray.length-1];
     refIDNofrompaypalArray.pop();
-    this.lastname = refIDNofrompaypalArray[-1];
+    this.lastname = refIDNofrompaypalArray[refIDNofrompaypalArray.length-1];
     refIDNofrompaypalArray.pop();
-    this.firstname = refIDNofrompaypalArray[-1];
+    this.firstname = refIDNofrompaypalArray[refIDNofrompaypalArray.length-1];
     refIDNofrompaypalArray.pop();
 
 
@@ -64,6 +73,43 @@ export class InvoicefinishpayComponent implements OnInit {
     //
     console.log(this.productNo);
     console.log(this.productId);
+
+    this.getCustomerinfos();
+    this.addCustomerinfo();
+  }
+  getCustomerinfos(){
+    this.customerinfoService.getAll().subscribe(
+      (res: Customerinfo[]) => {
+        this.customerinfos = res;
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+
+  }
+
+  addCustomerinfo() {
+    console.log(this.firstname);
+    console.log(this.lastname);
+    console.log(this.email);
+    console.log(this.phone);
+    this.error = '';
+    this.success = '';
+    this.customerinfoService.store({firstname: this.firstname, lastname: this.lastname, email: this.email, phone: this.phone, referenceNo: this.referenceNo})
+      .subscribe(
+        (res: Customerinfo[]) => {
+          // Update the list of cars
+          this.customerinfos = res;
+
+          // Inform the user
+          this.success = 'Created successfully';
+
+          // Reset the form
+          // f.reset();
+        },
+        (err) => this.error = err
+      );
   }
 
 }

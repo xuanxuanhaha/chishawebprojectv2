@@ -1,2 +1,92 @@
 <p>invoicefinishpay works!</p>
 {{referenceNo}}
+
+
+<div *ngIf="error">{{error}}</div>
+<div *ngIf="success">{{success}}</div>
+
+<div id="theList">
+  <h2>The list</h2>
+  <ul>
+    <li *ngFor="let item of customerinfos">{{item.firstname}} | {{item.lastname}} | {{item.email}} | {{item.phone}} | {{item.referenceNo}} </li>
+  </ul>
+</div>
+
+
+<!--<div id="theForm">-->
+<!--  <h2>The form</h2>-->
+<!--  <form #f="ngForm" name="theForm" >-->
+<!--    <div class="form-group">-->
+<!--      <label>Model</label>-->
+<!--      <input type="text"-->
+<!--             class="form-control"-->
+<!--             name="model"-->
+<!--             [(ngModel)]="customerinfo.firstname"-->
+<!--             #carModel="ngModel"-->
+<!--             required-->
+<!--             pattern="^[a-zA-Z]+$">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label>Model</label>-->
+<!--      <input type="text"-->
+<!--             class="form-control"-->
+<!--             name="model"-->
+<!--             [(ngModel)]="customerinfo.lastname"-->
+<!--             #carModel="ngModel"-->
+<!--             required-->
+<!--             pattern="^[a-zA-Z]+$">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label>Model</label>-->
+<!--      <input type="text"-->
+<!--             class="form-control"-->
+<!--             name="model"-->
+<!--             [(ngModel)]="customerinfo.email"-->
+<!--             #carModel="ngModel"-->
+<!--             required-->
+<!--             pattern="^[a-zA-Z]+$">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label>Model</label>-->
+<!--      <input type="number"-->
+<!--             class="form-control"-->
+<!--             name="model"-->
+<!--             [(ngModel)]="customerinfo.phone"-->
+<!--             #carModel="ngModel"-->
+<!--             required-->
+<!--             pattern="^[a-zA-Z]+$">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label>Model</label>-->
+<!--      <input type="number"-->
+<!--             class="form-control"-->
+<!--             name="model"-->
+<!--             [(ngModel)]="customerinfo.referenceNo"-->
+<!--             #carModel="ngModel"-->
+<!--             required-->
+<!--             pattern="^[a-zA-Z]+$">-->
+<!--    </div>-->
+
+
+<!--&lt;!&ndash;    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;      <label>Price</label>&ndash;&gt;-->
+<!--&lt;!&ndash;      <input type="number"&ndash;&gt;-->
+<!--&lt;!&ndash;             class="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;             name="price"&ndash;&gt;-->
+<!--&lt;!&ndash;             required&ndash;&gt;-->
+<!--&lt;!&ndash;             [(ngModel)]="customerinfo.price"&ndash;&gt;-->
+<!--&lt;!&ndash;             #carPrice="ngModel">&ndash;&gt;-->
+<!--&lt;!&ndash;      <span class="help-block danger" *ngIf="carPrice.errors?.required && carPrice.touched">&ndash;&gt;-->
+<!--&lt;!&ndash;        The price is required&ndash;&gt;-->
+<!--&lt;!&ndash;      </span>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--    <button-->
+<!--      class="btn btn-primary btn-sm"-->
+<!--      >Add</button>-->
+<!--  </form>-->
+<!--</div>-->
