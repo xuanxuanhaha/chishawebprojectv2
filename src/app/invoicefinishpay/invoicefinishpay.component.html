@@ -5,12 +5,43 @@
 <div *ngIf="error">{{error}}</div>
 <div *ngIf="success">{{success}}</div>
 
-<div id="theList">
-  <h2>The list</h2>
-  <ul>
-    <li *ngFor="let item of customerinfos">{{item.firstname}} | {{item.lastname}} | {{item.email}} | {{item.phone}} | {{item.referenceNo}} </li>
-  </ul>
+<!--<div id="theList">-->
+<!--  <h2>The list</h2>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let item of customerinfos">{{item.firstname}} | {{item.lastname}} | {{item.email}} | {{item.phone}} | {{item.referenceNo}} </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<div>
+  {{firstname}}
+  {{lastname}}
+  {{email}}
+  {{referenceNo}}
 </div>
+
+<div id="theList">
+  <div class="form-group row">
+    <div class="col-6">
+      <ul *ngFor="let item of listproducts, let index = index" id="{{index}}">
+
+        <button style="height:200px;width: 500px;border: 1px solid cornflowerblue; margin-top: 50px" >
+          <!--        {{item.imgUrl}}-->
+          <div style="width: 40%"><img src="./../../{{item.imgUrl}}" style="width: 150px;margin-left: -50px"></div>
+          <div style="width: 60%; margin-left: 40%;margin-top: -150px">
+            <br>
+            <div id="{{'productname_' + index}}">{{item.productName}}</div>
+            <div style="background: darkgrey"><span style="color: red; float: left; margin-left: 20px">Price:</span> {{item.unitPrice}} / {{item.unit}}</div>
+            <br>
+          </div>
+        </button>
+
+      </ul>
+    </div>
+  </div>
+  <button [routerLink]="['/Cart']">View Cart</button>
+</div>
+
+
 
 
 <!--<div id="theForm">-->

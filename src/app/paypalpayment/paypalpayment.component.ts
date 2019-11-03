@@ -49,7 +49,7 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
       return actions.payment.create({
         transactions: [{
           amount: {
-            total: 0.01,
+            total: totalPrice,
             currency: 'AUD'
           }
         }]

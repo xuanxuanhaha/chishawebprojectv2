@@ -3,6 +3,8 @@ import {DataService} from '../data.service';
 import {Router} from '@angular/router';
 import {Customerinfo} from '../customerinfo';
 import {CustomerinfoService} from '../customerinfo.service';
+import {Product} from '../product';
+import {ProductService} from '../product.service';
 
 @Component({
   selector: 'app-invoicefinishpay',
@@ -14,8 +16,10 @@ export class InvoicefinishpayComponent implements OnInit {
   refIDNofrompaypal = '';
   referenceNo = '';
   totalAmount = 0;
+  products: Product[];
   // how many product Number it have
   productNo = [];
+  listproducts = [];
   // Product Id in database
   productId = [];
   firstname = '';
@@ -26,7 +30,7 @@ export class InvoicefinishpayComponent implements OnInit {
   error='';
   success='';
   customerinfo = new Customerinfo('', '', '', 0, 0);
-  constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router) { }
+  constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router, private productService: ProductService) { }
 
   ngOnInit() {
 
@@ -76,6 +80,8 @@ export class InvoicefinishpayComponent implements OnInit {
 
     this.getCustomerinfos();
     this.addCustomerinfo();
+    this.getProducts();
+
   }
   getCustomerinfos(){
     this.customerinfoService.getAll().subscribe(
@@ -111,5 +117,23 @@ export class InvoicefinishpayComponent implements OnInit {
         (err) => this.error = err
       );
   }
-
+  getProducts() {
+    return this.productService.getAll().subscribe(
+      (res: Product[]) => {
+        this.products = res;
+        // for(let i = 0; i < res.length; i++){
+        //   this.listproducts[i] = res[i];
+        // }
+        for(let i = 0; i < this.productId.length; i++){
+          console.log(this.productId[i]);
+          this.listproducts[i] = res[Number(this.productId[i])-1];
+          console.log(res[Number(this.productId[i])-1]);
+        }
+        console.log(this.listproducts);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
+  }
 }
