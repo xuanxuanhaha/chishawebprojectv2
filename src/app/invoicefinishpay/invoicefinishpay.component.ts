@@ -29,7 +29,7 @@ export class InvoicefinishpayComponent implements OnInit {
   customerinfos: Customerinfo[];
   error='';
   success='';
-  customerinfo = new Customerinfo('', '', '', 0, 0);
+  customerinfo = new Customerinfo('', '', '', '', '');
   constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router, private productService: ProductService) { }
 
   ngOnInit() {

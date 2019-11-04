@@ -3,7 +3,7 @@ export class Customerinfo {
     firstname: string,
     lastname: string,
     email: string,
-    phone: number,
-    referenceNo: number,
+    phone: string,
+    referenceNo: string,
     id?: number) {}
 }

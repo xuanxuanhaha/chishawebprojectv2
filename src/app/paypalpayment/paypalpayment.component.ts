@@ -1,6 +1,8 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {DataService} from '../data.service';
+import {Confirmproduct} from '../confirmproduct';
+import {ConfirmproductService} from '../confirmproduct.service';
 declare let paypal: any;
 // @ts-ignore
 let totalPrice: any;
@@ -20,6 +22,10 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
   buyProductNoArray = [];
   fromCartOrOrder = '';
   referenceNo = '';
+  error: '';
+  success: string;
+  confirmproduct = new Confirmproduct(0, 0, '');
+  confirmproducts: Confirmproduct[];
   paypalConfig = {
     // Configure environment
     // env: 'production',
@@ -43,13 +49,14 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     // Enable Pay Now checkout flow (optional)
     commit: true,
 
+
     // Set up a payment
     payment(data, actions) {
       // var that = this
       return actions.payment.create({
         transactions: [{
           amount: {
-            total: totalPrice,
+            total: 0.01,
             currency: 'AUD'
           }
         }]
@@ -65,8 +72,8 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
         // window.alert('Thank you for your purchase!');
         console.log(payment);
         console.log(printMessage);
-        window.location.href = 'http://localhost:4200/invoicefinishpay' + '/' + printMessage;
-      //  跳转到其他页面
+        window.location.href = 'http://localhost:4200/invoicefinishpay' + '/' + payment;
+      //  跳转到其他页面s
 
       });
     }
@@ -98,7 +105,7 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     });
   }
 
-  constructor(private router: Router, private data: DataService) {
+  constructor(private router: Router, private data: DataService, private confirmproductService: ConfirmproductService) {
   }
 
   ngOnInit() {
@@ -113,16 +120,19 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     printMessage = this.message;
     const message2 = this.message.split(',');
     // know whether from Cart or buy directly(1 product);
-    this.fromCartOrOrder = message2.slice(-1)[0];
-    this.referenceNo = message2.slice(-2)[0];
+    this.referenceNo = message2.slice(-1)[0];
+    message2.pop();
+    console.log(this.referenceNo);
     console.log(totalPrice);
     // get total price pass to paypal
     totalPrice = Number(message2[0]);
-    message2.splice(0, 1);
-    message2.pop();
-    message2.pop();
     console.log(message2);
-    console.log(this.fromCartOrOrder);
+    // message2.splice(0, 1);
+    // console.log(message2);
+    // message2.pop();
+    // message2.pop();
+    // console.log(message2);
+    // console.log(this.fromCartOrOrder);
 
     this.buyProductIdArray = [];
     this.buyProductNoArray = [];
@@ -135,11 +145,35 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     }
     console.log(this.buyProductIdArray);
     console.log(this.buyProductNoArray);
+    this.addConfirmproduct();
   }
 
   newMessage() {
     this.data.changeMessage('Hello from Sibling');
   }
 
+
+  addConfirmproduct() {
+    this.error = '';
+    this.success = '';
+
+    console.log(this.buyProductIdArray);
+    console.log(this.buyProductNoArray)
+
+    for(let i = 0; i < this.buyProductNoArray.length; i++){
+      this.confirmproductService.store({referenceNo: this.referenceNo, productId: this.buyProductIdArray[i], productNo: this.buyProductNoArray[i], totalPrice: 0})
+        .subscribe(
+          (res: Confirmproduct[]) => {
+            // Update the list of cars
+            this.confirmproducts = res;
+
+            // Inform the user
+            this.success = 'Created successfully';
+
+          },
+          (err) => this.error = err
+        );
+    }
+  }
 
 }
