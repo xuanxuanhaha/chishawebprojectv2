@@ -5,6 +5,8 @@ import {Customerinfo} from '../customerinfo';
 import {CustomerinfoService} from '../customerinfo.service';
 import {Product} from '../product';
 import {ProductService} from '../product.service';
+import {Paymentinfo} from '../paymentinfo';
+import {PaymentinfoService} from '../paymentinfo.service';
 
 @Component({
   selector: 'app-invoicefinishpay',
@@ -30,7 +32,12 @@ export class InvoicefinishpayComponent implements OnInit {
   error='';
   success='';
   customerinfo = new Customerinfo('', '', '', '', '');
-  constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router, private productService: ProductService) { }
+  paymentId = '';
+  paymentStatus = '';
+  paymentCreateTime = '';
+  paymentinfo = new Paymentinfo('', '', '', '');
+  paymentinfos: Paymentinfo[];
+  constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router, private productService: ProductService, private paymentinfoService: PaymentinfoService) { }
 
   ngOnInit() {
 
@@ -40,47 +47,19 @@ export class InvoicefinishpayComponent implements OnInit {
     const urlmessage = this.router.url;
     this.refIDNofrompaypal = urlmessage.split('/').splice(-1)[0];
     console.log(this.refIDNofrompaypal);
-    let refIDNofrompaypalArray = [];
-    refIDNofrompaypalArray = this.refIDNofrompaypal.split(',');
-    console.log(refIDNofrompaypalArray);
+    let paypalinfoArray = [];
+    paypalinfoArray = this.refIDNofrompaypal.split(',');
 
-    this.totalAmount = refIDNofrompaypalArray[0];
-    console.log(this.totalAmount);
-    refIDNofrompaypalArray.shift();
-
-    console.log(refIDNofrompaypalArray);
-
-    this.phone = refIDNofrompaypalArray[refIDNofrompaypalArray.length - 1];
-    console.log(this.phone);
-    refIDNofrompaypalArray.pop();
-    this.email = refIDNofrompaypalArray[refIDNofrompaypalArray.length-1];
-    refIDNofrompaypalArray.pop();
-    this.lastname = refIDNofrompaypalArray[refIDNofrompaypalArray.length-1];
-    refIDNofrompaypalArray.pop();
-    this.firstname = refIDNofrompaypalArray[refIDNofrompaypalArray.length-1];
-    refIDNofrompaypalArray.pop();
-
-
-    let fromCart = '';
-    fromCart = refIDNofrompaypalArray[-1];
-    refIDNofrompaypalArray.pop();
-    this.referenceNo = refIDNofrompaypalArray.splice(-1)[0];
-    console.log(this.referenceNo);
-
-    console.log(refIDNofrompaypalArray);
-    for(let i = refIDNofrompaypalArray.length / 2; i < refIDNofrompaypalArray.length; i++){
-      this.productNo.push(refIDNofrompaypalArray[i]);
-    }
-    for (let i = 0; i < refIDNofrompaypalArray.length / 2; i++){
-      this.productId.push(refIDNofrompaypalArray[i]);
-    }
+    this.referenceNo = paypalinfoArray[0];
+    this.paymentId = paypalinfoArray[1];
+    this.paymentStatus = paypalinfoArray[2];
+    this.paymentCreateTime = paypalinfoArray[3];
     //
-    console.log(this.productNo);
-    console.log(this.productId);
+    // this.getCustomerinfos();
+    // this.addCustomerinfo();
+    // this.getProducts();
 
-    this.getCustomerinfos();
-    this.addCustomerinfo();
-    this.getProducts();
+    this.addPaymentinfo();
 
   }
   getCustomerinfos(){
@@ -135,5 +114,25 @@ export class InvoicefinishpayComponent implements OnInit {
         this.error = err;
       }
     );
+  }
+  addPaymentinfo() {
+    this.error = '';
+    this.success = '';
+    console.log(this.paymentId);
+    console.log(this.paymentStatus);
+    console.log(this.paymentCreateTime);
+
+    this.paymentinfoService.store({referenceNo: this.referenceNo, paymentId: this.paymentId, paymentStatus: this.paymentStatus, paymentTime: this.paymentCreateTime})
+      .subscribe(
+        (res: Paymentinfo[]) => {
+          // Update the list of cars
+          this.paymentinfos = res;
+
+          // Inform the user
+          this.success = 'Created successfully';
+
+        },
+        (err) => this.error = err
+      );
   }
 }

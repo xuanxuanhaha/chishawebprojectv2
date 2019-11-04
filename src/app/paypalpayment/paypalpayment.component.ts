@@ -7,6 +7,10 @@ declare let paypal: any;
 // @ts-ignore
 let totalPrice: any;
 let printMessage: any;
+let referenceNo: any;
+let paypalid: any;
+let paypalstatus: any;
+let paypaltime: any;
 
 
 
@@ -71,8 +75,13 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
         // that.paymentSuccess();
         // window.alert('Thank you for your purchase!');
         console.log(payment);
-        console.log(printMessage);
-        window.location.href = 'http://localhost:4200/invoicefinishpay' + '/' + payment;
+        console.log(payment.id);
+        console.log(payment.intent);
+        console.log(payment.state);
+        console.log(payment.cart);
+        console.log(payment.create_time);
+
+        window.location.href = 'http://localhost:4200/invoicefinishpay' + '/' + referenceNo + ','  + payment.id + ',' + payment.state + ',' + payment.create_time;
       //  跳转到其他页面s
 
       });
@@ -123,6 +132,7 @@ export class PaypalpaymentComponent implements AfterViewChecked, OnInit {
     this.referenceNo = message2.slice(-1)[0];
     message2.pop();
     console.log(this.referenceNo);
+    referenceNo = this.referenceNo;
     console.log(totalPrice);
     // get total price pass to paypal
     totalPrice = Number(message2[0]);
