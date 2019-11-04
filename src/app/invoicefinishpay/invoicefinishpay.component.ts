@@ -7,6 +7,9 @@ import {Product} from '../product';
 import {ProductService} from '../product.service';
 import {Paymentinfo} from '../paymentinfo';
 import {PaymentinfoService} from '../paymentinfo.service';
+import {Observable} from 'rxjs';
+import {Confirmproduct} from '../confirmproduct';
+import {ConfirmproductService} from '../confirmproduct.service';
 
 @Component({
   selector: 'app-invoicefinishpay',
@@ -37,7 +40,8 @@ export class InvoicefinishpayComponent implements OnInit {
   paymentCreateTime = '';
   paymentinfo = new Paymentinfo('', '', '', '');
   paymentinfos: Paymentinfo[];
-  constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router, private productService: ProductService, private paymentinfoService: PaymentinfoService) { }
+  confirmproducts: Confirmproduct[];
+  constructor(private customerinfoService: CustomerinfoService, private data: DataService, private router: Router, private confirmproductService: ConfirmproductService, private productService: ProductService, private paymentinfoService: PaymentinfoService) { }
 
   ngOnInit() {
 
@@ -61,6 +65,7 @@ export class InvoicefinishpayComponent implements OnInit {
 
     this.addPaymentinfo();
 
+    this.getConfirmproducts();
   }
   getCustomerinfos(){
     this.customerinfoService.getAll().subscribe(
@@ -134,5 +139,18 @@ export class InvoicefinishpayComponent implements OnInit {
         },
         (err) => this.error = err
       );
+  }
+
+
+  getConfirmproducts(): void {
+    this.confirmproductService.getAll().subscribe(
+      (res: Confirmproduct[]) => {
+        this.confirmproducts = res;
+        console.log(res);
+      },
+      (err) => {
+        this.error = err;
+      }
+    );
   }
 }

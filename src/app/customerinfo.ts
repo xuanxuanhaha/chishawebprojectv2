@@ -5,5 +5,6 @@ export class Customerinfo {
     email: string,
     phone: string,
     referenceNo: string,
+    address: string,
     id?: number) {}
 }

@@ -29,8 +29,9 @@ export class PayfromcartComponent implements OnInit {
   lastname = new FormControl('');
   email = new FormControl('');
   phone = new FormControl('');
+  address = new FormControl('');
   success = '';
-  customerinfo = new Customerinfo('', '', '', '', '');
+  customerinfo = new Customerinfo('', '', '', '', '', '');
   customerinfos: Customerinfo[];
   confirmproduct = new Confirmproduct(0, 0,  '');
   confirmproducts: Confirmproduct[];
@@ -139,7 +140,7 @@ export class PayfromcartComponent implements OnInit {
     this.error = '';
     this.success = '';
 
-    this.customerinfoService.store({firstname: this.firstname.value, lastname: this.lastname.value, email: this.email.value, phone: this.phone.value, referenceNo: this.referenceNo})
+    this.customerinfoService.store({firstname: this.firstname.value, lastname: this.lastname.value, email: this.email.value, phone: this.phone.value, address: this.address.value, referenceNo: this.referenceNo})
       .subscribe(
         (res: Customerinfo[]) => {
           // Update the list of cars

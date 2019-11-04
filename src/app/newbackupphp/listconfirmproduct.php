@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 include 'connect.php';
 
 $customerinfos = [];
-$sql = "SELECT firstname, lastname, email, phone, address, referenceNo FROM customerinfos";
+$sql = "SELECT referenceNo, productId, productNo FROM confirmproducts";
 
 if($result = mysqli_query($con,$sql))
 {
@@ -17,12 +17,9 @@ if($result = mysqli_query($con,$sql))
   while($row = mysqli_fetch_assoc($result))
   {
     $customerinfos[$cr]['id']    = $row['id'];
-    $customerinfos[$cr]['firstname'] = $row['firstname'];
-    $customerinfos[$cr]['lastname'] = $row['lastname'];
-    $customerinfos[$cr]['email'] = $row['email'];
-    $customerinfos[$cr]['phone'] = $row['phone'];
-    $customerinfos[$cr]['address'] = $row['address'];
     $customerinfos[$cr]['referenceNo'] = $row['referenceNo'];
+    $customerinfos[$cr]['productId'] = $row['productId'];
+    $customerinfos[$cr]['productNo'] = $row['productNo'];
     $cr++;
   }
 

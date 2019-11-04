@@ -21,10 +21,11 @@ if(isset($postdata) && !empty($postdata))
   $lastname = mysqli_real_escape_string($con, trim($request->data->lastname));
   $email = mysqli_real_escape_string($con, trim($request->data->email));
   $phone = mysqli_real_escape_string($con, trim($request->data->phone));
+  $address = mysqli_real_escape_string($con, trim($request->data->address));
   $referenceNo = mysqli_real_escape_string($con, trim($request->data->referenceNo));
 
   // Store.
-  $sql = "INSERT INTO `customerinfos`(`id`,`firstname`,`lastname`,`email`,`phone`,`referenceNo`) VALUES (null,'{$firstname}','{$lastname}','{$email}','{$phone}','{$referenceNo}')";
+  $sql = "INSERT INTO `customerinfos`(`id`,`firstname`,`lastname`,`email`,`phone`,`address`,`referenceNo`) VALUES (null,'{$firstname}','{$lastname}','{$email}','{$phone}','{$address}','{$referenceNo}')";
 
   if(mysqli_query($con,$sql))
   {
@@ -34,6 +35,7 @@ if(isset($postdata) && !empty($postdata))
       'lastname' => $lastname,
       'email' => $email,
       'phone' => $phone,
+      'address' => $address,
       'referenceNo' => $referenceNo,
       'id'    => mysqli_insert_id($con)
     ];
