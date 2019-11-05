@@ -8,6 +8,7 @@ import {DataService} from '../data.service';
   templateUrl: './product-show.component.html',
   styleUrls: ['./product-show.component.css']
 })
+
 export class ProductShowComponent implements OnInit {
   products: Product[];
   referenceNo: any;
@@ -21,15 +22,77 @@ export class ProductShowComponent implements OnInit {
   addtocartIndex = [];
   addtocartreferenceNo = [];
   addtocartproductNumber = [];
+  numberarray = [];
+  itemnumber = [];
+  idsfromcart = [];
+  nosfromcart = [];
+  firsttimefromcart: boolean;
+  totalproductNo: number;
+  constructor(private productService: ProductService, private data: DataService) {
 
-  constructor(private productService: ProductService, private data: DataService) { }
+  }
 
   ngOnInit() {
     this.getProducts();
     console.log(this.listproducts);
     this.numbershow = false;
-    this.getReferenceNo();
     this.data.currentMessage.subscribe(message => this.message = message);
+    console.log(this.message);
+
+    if(this.message !== 'default message'){
+      this.numbershow = true;
+      console.log(this.message);
+      this.totalproductNo = Number(this.message[Number(this.message.length - 1)]);
+      console.log(this.totalproductNo);
+
+      const result = [];
+
+      for (let i = 0; i < this.message.length - 1; i++) {
+        const value = this.message[i].replace(/[^0-9]/ig, '');
+        result.push(value);
+      }
+      for (let i = 0; i < result.length; i += 4) {
+        // const value = this.message[i].replace(/[^0-9]/ig,"");
+        this.numberarray.push(result.slice(i, i + 4));
+      }
+      console.log(this.numberarray);
+      console.log(this.numberarray.length);
+      for( let i = 0; i < this.numberarray.length; i++){
+        console.log(this.numberarray[i]);
+        this.itemnumber.push(this.numberarray[i][3]);
+        this.idsfromcart.push(this.numberarray[i][0]);
+        this.nosfromcart.push(this.numberarray[i][3]);
+        this.referenceNo = this.numberarray[0][2];
+      }
+      this.firsttimefromcart = true;
+
+      console.log(this.countproducts);
+      for(let i = 0; i < this.totalproductNo; i++){
+        if(!this.countproducts[i]){
+          this.countproducts[i] = 1;
+          console.log('No');
+        }
+        console.log(this.countproducts);
+        if(this.firsttimefromcart === true){
+
+          for (let j = 0; j < this.totalproductNo; j++){
+            if(Number(this.idsfromcart[j]) - 1 === i){
+              console.log('Yes');
+              this.countproducts[i] = Number(this.nosfromcart[j]);
+            }
+          }
+        }
+        console.log(this.countproducts);
+      }
+
+    }else{
+      this.getReferenceNo();
+      this.firsttimefromcart = false;
+    }
+
+    console.log(this.idsfromcart);
+    console.log(this.nosfromcart);
+
   }
   getProducts() {
     return this.productService.getAll().subscribe(
@@ -54,14 +117,32 @@ export class ProductShowComponent implements OnInit {
 
   addOne(index) {
     this.numbershow = true;
+    if(this.numberarray.length>0){
+      console.log(this.numberarray[0][0]);
+    }
+
     for(let i = 0; i < this.listproducts.length; i++){
       if(!this.countproducts[i]){
         this.countproducts[i] = 1;
+        console.log('No');
       }
+      console.log(this.countproducts);
+      if(this.firsttimefromcart === true){
+
+        for (let j = 0; j < this.listproducts.length; j++){
+          if(Number(this.idsfromcart[j]) - 1 === i){
+            console.log('Yes');
+            this.countproducts[i] = Number(this.nosfromcart[j]);
+          }
+        }
+      }
+      console.log(this.countproducts);
     }
+    console.log(this.countproducts);
     this.countproducts[index] = this.countproducts[index] + 1;
     console.log(this.countproducts);
     console.log(this.listproducts[index]);
+    this.firsttimefromcart = false;
   }
   deleteOne(index) {
     this.numbershow = true;
@@ -69,6 +150,18 @@ export class ProductShowComponent implements OnInit {
       if(!this.countproducts[i]){
         this.countproducts[i] = 1;
       }
+
+      console.log(this.countproducts);
+      if(this.firsttimefromcart === true){
+
+        for (let j = 0; j < this.listproducts.length; j++){
+          if(Number(this.idsfromcart[j]) - 1 === i){
+            console.log('Yes');
+            this.countproducts[i] = Number(this.nosfromcart[j]);
+          }
+        }
+      }
+      console.log(this.countproducts);
     }
     this.countproducts[index] = this.countproducts[index] - 1;
     if(this.countproducts[index] < 1){
@@ -154,6 +247,8 @@ export class ProductShowComponent implements OnInit {
       a.push(this.addtocartreferenceNo[i]);
       a.push(this.addtocartproductNumber[i]);
     }
+    a.push(this.listproducts.length);
+    console.log(a);
     this.data.changeMessage1(a);
   }
 }

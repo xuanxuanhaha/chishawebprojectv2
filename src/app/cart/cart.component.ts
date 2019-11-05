@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {DataService} from '../data.service';
 import {Product} from '../product';
 import {ProductService} from '../product.service';
@@ -24,6 +24,8 @@ export class CartComponent implements OnInit {
   addtocartreferenceNo = [];
   addtocartproductNumber = [];
 
+  backtohomemessage: string;
+
   masterSelected: boolean;
   checklist: any;
   checkedList: any;
@@ -48,13 +50,23 @@ export class CartComponent implements OnInit {
 
   }
 
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+    console.log('Back button pressed');
+    console.log(this.referenceNo);
+    this.backtohomeMessage();
+  }
+
   ngOnInit() {
     this.masterSelected = false;
     this.data.currentMessage.subscribe(message => this.message = message);
     console.log(this.message);
+    console.log(this.message.length);
+    this.backtohomemessage = this.message;
+
     const result = [];
 
-    for (let i = 0; i < this.message.length; i++){
+    for (let i = 0; i < this.message.length - 1; i++){
       const value = this.message[i].replace(/[^0-9]/ig, '');
       result.push(value);
     }
@@ -150,6 +162,11 @@ export class CartComponent implements OnInit {
     console.log(c);
     // product ID    and    itemNumber
     this.data.changeMessage(c.toString() + ',' +  this.referenceNo);
+  }
+
+  backtohomeMessage(){
+
+    this.data.changeMessage(this.backtohomemessage);
   }
 
   changeInfotoseveralarrays(){
